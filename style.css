@@ -1,0 +1,263 @@
+/* Polices : script rétro + titres de Noël (nécessite internet) */
+@import url('https://fonts.googleapis.com/css2?family=Lobster&family=Mountains+of+Christmas:wght@400;700&family=Nunito:wght@400;700&display=swap');
+
+/* Palette : modifiez ici pour changer toutes les couleurs */
+:root {
+  --rouge: #c8102e;
+  --vert: #0b6e4f;
+  --aqua: #2a9d9a;
+  --or: #e0a526;
+  --creme: #fff8e7;
+  --blanc: #fffdf6;
+  --brun: #3d2b1f;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Fond crème à pois rouges et verts */
+body {
+  font-family: 'Nunito', Arial, sans-serif;
+  line-height: 1.7;
+  color: var(--brun);
+  background-color: var(--creme);
+  background-image:
+    radial-gradient(rgba(200, 16, 46, 0.13) 4px, transparent 4px),
+    radial-gradient(rgba(11, 110, 79, 0.13) 4px, transparent 4px);
+  background-size: 44px 44px;
+  background-position: 0 0, 22px 22px;
+}
+
+/* En-tête rouge */
+header {
+  text-align: center;
+  padding: 45px 20px 40px;
+  background-color: var(--rouge);
+  color: var(--creme);
+}
+
+/* Guirlande lumineuse en haut */
+header::before {
+  content: "";
+  display: block;
+  height: 34px;
+  margin: -45px -20px 25px;
+  border-top: 3px solid #222;
+  background:
+    radial-gradient(circle at 15px 17px, #ffd23f 0 7px, transparent 8px),
+    radial-gradient(circle at 45px 17px, #3ddc97 0 7px, transparent 8px),
+    radial-gradient(circle at 75px 17px, #4cc9f0 0 7px, transparent 8px),
+    radial-gradient(circle at 105px 17px, #ff8fab 0 7px, transparent 8px);
+  background-size: 120px 34px;
+  background-repeat: repeat-x;
+}
+
+/* Bordure en sucre d'orge en bas */
+header::after {
+  content: "";
+  display: block;
+  height: 20px;
+  margin: 35px -20px -40px;
+  background: repeating-linear-gradient(
+    45deg,
+    var(--blanc) 0 14px,
+    var(--vert) 14px 28px
+  );
+}
+
+.flocons {
+  font-size: 2rem;
+  letter-spacing: 14px;
+  margin-bottom: 5px;
+}
+
+header h1 {
+  font-family: 'Mountains of Christmas', cursive;
+  font-weight: 700;
+  font-size: 4rem;
+  line-height: 1.1;
+  text-shadow: 4px 4px 0 #7a0a1d;
+}
+
+.sous-titre {
+  font-family: 'Lobster', cursive;
+  font-size: 1.8rem;
+  color: #ffe08a;
+  margin-top: 8px;
+}
+
+/* Contenu */
+main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 45px 20px;
+}
+
+/* Grille : 3 colonnes, donc 3 lignes pour 9 recettes */
+.recettes {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 34px 30px;
+  align-items: start;
+  counter-reset: recette;
+}
+
+/* Cartes : chaque colonne a sa couleur */
+.recette {
+  --c: var(--rouge);
+  position: relative;
+  counter-increment: recette;
+  background-color: var(--blanc);
+  text-align: center;
+  padding: 38px 22px 26px;
+  border: 4px solid var(--c);
+  border-radius: 20px;
+  box-shadow: 7px 7px 0 var(--c);
+  outline: 2px dashed var(--or);
+  outline-offset: -11px;
+  transition: transform 0.25s;
+}
+
+.recette:nth-child(3n+2) {
+  --c: var(--vert);
+}
+
+.recette:nth-child(3n) {
+  --c: var(--aqua);
+}
+
+.recette:hover {
+  transform: translateY(-6px) rotate(-1deg);
+}
+
+/* Étiquette "Recette n°" façon cadeau */
+.recette::before {
+  content: "Recette n° " counter(recette);
+  position: absolute;
+  top: -17px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--c);
+  color: var(--blanc);
+  font-family: 'Lobster', cursive;
+  font-size: 1.1rem;
+  padding: 1px 18px;
+  border-radius: 999px;
+  border: 3px solid var(--or);
+  white-space: nowrap;
+}
+
+.emoji {
+  font-size: 3rem;
+  margin-bottom: 4px;
+}
+
+.recette h2 {
+  font-family: 'Lobster', cursive;
+  font-weight: normal;
+  font-size: 1.55rem;
+  color: var(--c);
+  line-height: 1.25;
+  margin-bottom: 8px;
+}
+
+.infos {
+  display: inline-block;
+  background-color: #fff0c2;
+  color: var(--brun);
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 2px 14px;
+  border-radius: 999px;
+  margin-bottom: 14px;
+}
+
+/* Bouton "Voir la recette" */
+summary {
+  display: table;
+  margin: 0 auto;
+  list-style: none;
+  cursor: pointer;
+  background-color: var(--c);
+  color: var(--blanc);
+  font-weight: 700;
+  padding: 8px 24px;
+  border-radius: 999px;
+  border: 3px solid var(--or);
+  transition: transform 0.2s;
+}
+
+summary::-webkit-details-marker {
+  display: none;
+}
+
+summary:hover {
+  transform: scale(1.07);
+}
+
+details[open] summary {
+  margin-bottom: 12px;
+}
+
+details {
+  text-align: left;
+}
+
+h3 {
+  font-family: 'Lobster', cursive;
+  font-weight: normal;
+  font-size: 1.4rem;
+  color: var(--rouge);
+  margin-top: 12px;
+  border-bottom: 2px dotted var(--or);
+}
+
+ul, ol {
+  margin: 8px 0 0 22px;
+  font-size: 0.95rem;
+}
+
+li {
+  margin-bottom: 4px;
+}
+
+li::marker {
+  color: var(--c);
+  font-weight: bold;
+}
+
+/* Pied de page */
+footer {
+  text-align: center;
+  padding: 36px 20px 30px;
+  background-color: var(--vert);
+  color: var(--creme);
+  font-family: 'Lobster', cursive;
+  font-size: 1.6rem;
+  border-top: 20px solid transparent;
+  border-image: repeating-linear-gradient(
+    45deg,
+    var(--blanc) 0 14px,
+    var(--rouge) 14px 28px
+  ) 20;
+}
+
+/* Tablette : 2 colonnes */
+@media (max-width: 900px) {
+  .recettes {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Téléphone : 1 colonne */
+@media (max-width: 600px) {
+  .recettes {
+    grid-template-columns: 1fr;
+  }
+  header h1 {
+    font-size: 2.8rem;
+  }
+}

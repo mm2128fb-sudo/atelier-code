@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mes recettes de saison</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Lilita+One&family=Lobster&family=Lora:wght@400;600&family=Mountains+of+Christmas:wght@400;700&family=Nunito:wght@400;700&family=Pacifico&family=Playfair+Display:ital,wght@0,600;1,500&display=swap" rel="stylesheet">
+
+  <style>
+    /* ============================================================
+       1. THÈMES : chaque saison a ses couleurs, ses polices, son décor
+       ============================================================ */
+
+    /* 🌸 PRINTEMPS : pastels, fleurs, herbe tendre */
+    body[data-saison="printemps"] {
+      --f-h1: 'Pacifico', cursive;
+      --f-h2: 'Pacifico', cursive;
+      --f-script: 'Pacifico', cursive;
+      --f-body: 'Nunito', Arial, sans-serif;
+      --h1-weight: 400; --h1-style: normal; --h2-weight: 400;
+      --h2-size: 1.35rem; --h3-size: 1.1rem; --sous-size: 1.35rem;
+      --badge-size: 1rem; --pied-size: 1.3rem; --tab-size: 1rem;
+
+      --bg: #fffaf6; --papier: #ffffff; --texte: #4a3a45;
+      --c1: #d6336c; --c2: #2f8f4e; --c3: #7c4dbd; --accent: #f4a6c4;
+
+      --header-bg:
+        radial-gradient(ellipse 110px 34px at 14% 34%, rgba(255,255,255,.95), transparent 70%),
+        radial-gradient(ellipse 140px 40px at 84% 26%, rgba(255,255,255,.95), transparent 70%),
+        linear-gradient(180deg, #bfe9f7 0%, #fde6ee 100%);
+      --titre-couleur: #d6336c; --sous-couleur: #2f6f45;
+      --h1-ombre: 3px 3px 0 #ffffff;
+
+      --nav-bg: #9bd8a8; --nav-txt: #1f4d2e;
+      --tab-bg: rgba(255,255,255,.5); --tab-on-bg: #ffffff; --tab-on-txt: #d6336c;
+      --info-bg: #ffe3ee;
+
+      --motif:
+        radial-gradient(rgba(240,120,170,.18) 5px, transparent 5px),
+        radial-gradient(rgba(110,190,130,.22) 4px, transparent 4px);
+      --motif-taille: 56px 56px; --motif-pos: 0 0, 28px 28px;
+    }
+
+    /* ☀️ ÉTÉ : plage, auvent rayé, soleil, mer turquoise */
+    body[data-saison="ete"] {
+      --f-h1: 'Lilita One', cursive;
+      --f-h2: 'Lilita One', cursive;
+      --f-script: 'Lilita One', cursive;
+      --f-body: 'Nunito', Arial, sans-serif;
+      --h1-weight: 400; --h1-style: normal; --h2-weight: 400;
+      --h2-size: 1.5rem; --h3-size: 1.25rem; --sous-size: 1.5rem;
+      --badge-size: 1rem; --pied-size: 1.4rem; --tab-size: 1.1rem;
+
+      --bg: #fff6dc; --papier: #fffdf7; --texte: #3d2f1c;
+      --c1: #e63946; --c2: #0782a3; --c3: #c25e00; --accent: #ffd166;
+
+      --header-bg:
+        radial-gradient(circle at 86% 46%, #fff3b0 0 44px, rgba(255,243,176,.55) 45px 78px, transparent 79px),
+        linear-gradient(180deg, #ffe08a 0%, #ffc857 100%);
+      --titre-couleur: #fffdf2; --sous-couleur: #0b5d73;
+      --h1-ombre: 4px 4px 0 #e63946, 8px 8px 0 #0782a3;
+
+      --nav-bg: #0782a3; --nav-txt: #ffffff;
+      --tab-bg: rgba(255,255,255,.18); --tab-on-bg: #ffd166; --tab-on-txt: #7a3b00;
+      --info-bg: #ffefb8;
+
+      --motif:
+        radial-gradient(rgba(7,130,163,.10) 6px, transparent 6px),
+        radial-gradient(rgba(255,180,0,.22) 4px, transparent 4px);
+      --motif-taille: 48px 48px; --motif-pos: 0 0, 24px 24px;
+    }
+
+    /* 🍂 AUTOMNE : feuilles mortes, papier crémeux, livre de cuisine */
+    body[data-saison="automne"] {
+      --f-h1: 'Playfair Display', Georgia, serif;
+      --f-h2: 'Playfair Display', Georgia, serif;
+      --f-script: 'Caveat', cursive;
+      --f-body: 'Lora', Georgia, serif;
+      --h1-weight: 500; --h1-style: italic; --h2-weight: 600;
+      --h2-size: 1.4rem; --h3-size: 1.6rem; --sous-size: 1.9rem;
+      --badge-size: 1.3rem; --pied-size: 1.8rem; --tab-size: 1.4rem;
+
+      --bg: #fbf1e1; --papier: #fffaf1; --texte: #4a3123;
+      --c1: #b5532a; --c2: #66713a; --c3: #7a2e2e; --accent: #d9a441;
+
+      --header-bg: #b5532a;
+      --titre-couleur: #fbf1e1; --sous-couleur: #f2c46d;
+      --h1-ombre: 3px 3px 0 #7a2e2e;
+
+      --nav-bg: #4a3123; --nav-txt: #fbf1e1;
+      --tab-bg: rgba(255,255,255,.12); --tab-on-bg: #d9a441; --tab-on-txt: #4a3123;
+      --info-bg: #f3e3c3;
+
+      --motif: radial-gradient(rgba(181,83,42,.12) 1.5px, transparent 1.5px);
+      --motif-taille: 22px 22px; --motif-pos: 0 0;
+    }
+
+    /* ❄️ HIVER : Noël rétro, guirlande, sucre d'orge */
+    body[data-saison="hiver"] {
+      --f-h1: 'Mountains of Christmas', cursive;
+      --f-h2: 'Lobster', cursive;
+      --f-script: 'Lobster', cursive;
+      --f-body: 'Nunito', Arial, sans-serif;
+      --h1-weight: 700; --h1-style: normal; --h2-weight: 400;
+      --h2-size: 1.55rem; --h3-size: 1.4rem; --sous-size: 1.8rem;
+      --badge-size: 1.1rem; --pied-size: 1.5rem; --tab-size: 1.15rem;
+
+      --bg: #fff8e7; --papier: #fffdf6; --texte: #3d2b1f;
+      --c1: #c8102e; --c2: #0b6e4f; --c3: #1f7f7c; --accent: #e0a526;
+
+      --header-bg: #c8102e;
+      --titre-couleur: #fff8e7; --sous-couleur: #ffe08a;
+      --h1-ombre: 4px 4px 0 #7a0a1d;
+
+      --nav-bg: #0b6e4f; --nav-txt: #fff8e7;
+      --tab-bg: rgba(255,255,255,.15); --tab-on-bg: #fffdf6; --tab-on-txt: #c8102e;
+      --info-bg: #fff0c2;
+
+      --motif:
+        radial-gradient(rgba(200,16,46,.13) 4px, transparent 4px),
+        radial-gradient(rgba(11,110,79,.13) 4px, transparent 4px);
+      --motif-taille: 44px 44px; --motif-pos: 0 0, 22px 22px;
+    }
+
+    /* ============================================================
+       2. BASE COMMUNE
+       ============================================================ */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--f-body);
+      line-height: 1.7;
+      color: var(--texte);
+      background-color: var(--bg);
+      background-image: var(--motif);
+      background-size: var(--motif-taille);
+      background-position: var(--motif-pos);
+      min-height: 100vh;
+    }
+
+    /* ---------- En-tête ---------- */
+    header {
+      position: relative;
+      text-align: center;
+      padding: 46px 20px;
+      background: var(--header-bg);
+      color: var(--titre-couleur);
+    }
+
+    header::before,
+    header::after { content: none; display: block; }
+
+    .deco {
+      font-size: 2rem;
+      letter-spacing: 12px;
+      margin-bottom: 6px;
+    }
+
+    h1 {
+      font-family: var(--f-h1);
+      font-weight: var(--h1-weight);
+      font-style: var(--h1-style);
+      font-size: clamp(2.5rem, 8vw, 4rem);
+      line-height: 1.1;
+      color: var(--titre-couleur);
+      text-shadow: var(--h1-ombre);
+    }
+
+    .sous-titre {
+      font-family: var(--f-script);
+      font-size: var(--sous-size);
+      color: var(--sous-couleur);
+      margin-top: 8px;
+    }
+
+    /* ---------- Onglets ---------- */
+    .onglets {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      padding: 14px 12px;
+      background: var(--nav-bg);
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.18);
+    }
+
+    .onglet {
+      font-family: var(--f-script);
+      font-size: var(--tab-size);
+      color: var(--nav-txt);
+      background: var(--tab-bg);
+      border: 3px solid transparent;
+      border-radius: 999px;
+      padding: 6px 20px;
+      cursor: pointer;
+      transition: transform 0.2s, background 0.2s;
+    }
+
+    .onglet:hover { transform: translateY(-2px); }
+
+    .onglet.actif {
+      background: var(--tab-on-bg);
+      color: var(--tab-on-txt);
+      border-color: var(--accent);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 0 rgba(0, 0, 0, 0.22);
+    }
+
+    .onglet:focus-visible {
+      outline: 3px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    /* ---------- Grille de recettes : 3 colonnes ---------- */
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 50px 20px 20px;
+    }
+
+    .recettes {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 38px 30px;
+      align-items: start;
+      counter-reset: recette;
+    }
+
+    /* ---------- Cartes (base) ---------- */
+    .recette {
+      --c: var(--c1);
+      position: relative;
+      counter-increment: recette;
+      background: var(--papier);
+      text-align: center;
+      animation: apparition 0.6s ease backwards;
+      animation-delay: calc(var(--i) * 70ms);
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+
+    .recette:nth-child(3n+2) { --c: var(--c2); }
+    .recette:nth-child(3n)   { --c: var(--c3); }
+
+    .recette:hover { transform: translateY(-6px); }
+
+    .emoji {
+      font-size: 3rem;
+      line-height: 1.3;
+      margin-bottom: 4px;
+    }
+
+    .recette h2 {
+      font-family: var(--f-h2);
+      font-weight: var(--h2-weight);
+      font-size: var(--h2-size);
+      color: var(--c);
+      line-height: 1.25;
+      margin-bottom: 8px;
+    }
+
+    .infos {
+      display: inline-block;
+      background: var(--info-bg);
+      font-size: 0.85rem;
+      font-weight: 700;
+      padding: 2px 14px;
+      border-radius: 999px;
+      margin-bottom: 14px;
+    }
+
+    summary {
+      display: table;
+      margin: 0 auto;
+      list-style: none;
+      cursor: pointer;
+      background: var(--c);
+      color: #ffffff;
+      font-family: var(--f-body);
+      font-weight: 700;
+      padding: 8px 24px;
+      border-radius: 999px;
+      border: 3px solid var(--accent);
+      transition: transform 0.2s;
+    }
+
+    summary::-webkit-details-marker { display: none; }
+    summary:hover { transform: scale(1.07); }
+    details[open] summary { margin-bottom: 12px; }
+    details { text-align: left; }
+
+    h3 {
+      font-family: var(--f-script);
+      font-weight: 400;
+      font-size: var(--h3-size);
+      color: var(--c);
+      margin-top: 12px;
+      border-bottom: 2px dotted var(--accent);
+    }
+
+    ul, ol {
+      margin: 8px 0 0 22px;
+      font-size: 0.95rem;
+    }
+
+    li { margin-bottom: 4px; }
+    li::marker { color: var(--c); font-weight: bold; }
+
+    /* ---------- Photos et stickers (optionnels) ---------- */
+    .recette img.photo {
+      display: block;
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 14px;
+      border: 3px solid var(--accent);
+      margin-bottom: 14px;
+    }
+
+    .recette img.sticker {
+      position: absolute;
+      top: -22px;
+      right: -22px;
+      width: 95px;
+      height: 95px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 4px solid #ffffff;
+      box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.3);
+      transform: rotate(12deg);
+      z-index: 2;
+      transition: transform 0.2s;
+    }
+
+    .recette img.sticker:hover { transform: rotate(0deg) scale(1.6); }
+
+    /* ---------- Pied de page ---------- */
+    footer {
+      margin-top: 50px;
+      padding: 30px 20px;
+      text-align: center;
+      background: var(--nav-bg);
+      color: var(--nav-txt);
+      border-top: 8px double var(--tab-on-bg);
+      font-family: var(--f-script);
+      font-size: var(--pied-size);
+    }
+
+    /* ============================================================
+       3. DÉCOR PROPRE À CHAQUE SAISON
+       ============================================================ */
+
+    /* Badge numéro (printemps, automne, hiver) */
+    body[data-saison="printemps"] .recette::before,
+    body[data-saison="automne"] .recette::before,
+    body[data-saison="hiver"] .recette::before {
+      position: absolute;
+      top: -17px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--c);
+      color: #ffffff;
+      font-family: var(--f-script);
+      font-size: var(--badge-size);
+      padding: 1px 18px;
+      border-radius: 999px;
+      border: 3px solid var(--accent);
+      white-space: nowrap;
+    }
+
+    /* ----- 🌸 PRINTEMPS ----- */
+    body[data-saison="printemps"] header::after {
+      content: "";
+      height: 28px;
+      margin: 36px -20px -46px;
+      background:
+        radial-gradient(circle at 20px 28px, var(--nav-bg) 0 21px, transparent 22px) 0 0 / 80px 28px repeat-x,
+        radial-gradient(circle at 60px 28px, var(--nav-bg) 0 16px, transparent 17px) 0 0 / 80px 28px repeat-x;
+    }
+
+    body[data-saison="printemps"] .recette {
+      padding: 44px 22px 30px;
+      border: 3px solid var(--c);
+      border-radius: 34px 34px 34px 10px;
+      background: #ffffff;
+      background: linear-gradient(180deg, color-mix(in srgb, var(--c) 12%, #ffffff) 0, #ffffff 110px);
+      box-shadow: 0 12px 26px rgba(120, 70, 100, 0.15);
+    }
+
+    body[data-saison="printemps"] .recette::before { content: "n° " counter(recette); }
+
+    body[data-saison="printemps"] .recette::after {
+      content: "🌼";
+      position: absolute;
+      right: 12px;
+      bottom: -14px;
+      font-size: 1.7rem;
+      transform: rotate(14deg);
+    }
+
+    /* ----- ☀️ ÉTÉ ----- */
+    body[data-saison="ete"] header::before {
+      content: "";
+      height: 44px;
+      margin: -46px -20px 24px;
+      background:
+        linear-gradient(90deg, #e63946 50%, #fff8e0 50%) 0 0 / 80px 24px repeat-x,
+        radial-gradient(circle at 20px 0, #e63946 0 20px, transparent 21px) 0 24px / 80px 20px repeat-x,
+        radial-gradient(circle at 60px 0, #fff8e0 0 20px, transparent 21px) 0 24px / 80px 20px repeat-x;
+    }
+
+    body[data-saison="ete"] header::after {
+      content: "";
+      height: 20px;
+      margin: 30px -20px -46px;
+      background: radial-gradient(circle at 20px 20px, var(--nav-bg) 0 20px, transparent 21px) 0 0 / 40px 20px repeat-x;
+    }
+
+    body[data-saison="ete"] .recette {
+      padding: 62px 22px 28px;
+      border: 4px solid var(--c);
+      border-radius: 24px;
+      box-shadow: 6px 6px 0 var(--c);
+      overflow: hidden;
+    }
+
+    /* Auvent rayé sur chaque carte */
+    body[data-saison="ete"] .recette::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 44px;
+      background:
+        linear-gradient(90deg, var(--c) 50%, #ffefb8 50%) 0 0 / 60px 24px repeat-x,
+        radial-gradient(circle at 15px 0, var(--c) 0 15px, transparent 16px) 0 24px / 60px 15px repeat-x,
+        radial-gradient(circle at 45px 0, #ffefb8 0 15px, transparent 16px) 0 24px / 60px 15px repeat-x;
+    }
+
+    body[data-saison="ete"] .recette:nth-child(odd)  { transform: rotate(-1deg); }
+    body[data-saison="ete"] .recette:nth-child(even) { transform: rotate(1deg); }
+    body[data-saison="ete"] .recette:hover { transform: rotate(0deg) translateY(-6px); }
+
+    body[data-saison="ete"] .recette img.sticker { top: 50px; right: 10px; width: 80px; height: 80px; }
+
+    /* ----- 🍂 AUTOMNE ----- */
+    body[data-saison="automne"] header::after {
+      content: "";
+      height: 14px;
+      margin: 38px -20px -46px;
+      background: conic-gradient(from 135deg at 50% 0, var(--nav-bg) 0 90deg, transparent 90deg) 0 0 / 28px 14px repeat-x;
+    }
+
+    body[data-saison="automne"] .recette {
+      padding: 38px 22px 26px;
+      border: 2px solid #4a3123;
+      border-radius: 18px;
+      box-shadow: 6px 6px 0 var(--c);
+      outline: 2px dashed var(--accent);
+      outline-offset: -10px;
+    }
+
+    body[data-saison="automne"] .recette::before { content: "n° " counter(recette); }
+
+    /* ----- ❄️ HIVER ----- */
+    body[data-saison="hiver"] header::before {
+      content: "";
+      height: 34px;
+      margin: -46px -20px 22px;
+      border-top: 3px solid #222222;
+      background-image:
+        radial-gradient(circle at 15px 17px, #ffd23f 0 7px, transparent 8px),
+        radial-gradient(circle at 45px 17px, #3ddc97 0 7px, transparent 8px),
+        radial-gradient(circle at 75px 17px, #4cc9f0 0 7px, transparent 8px),
+        radial-gradient(circle at 105px 17px, #ff8fab 0 7px, transparent 8px);
+      background-size: 120px 34px;
+      background-repeat: repeat-x;
+    }
+
+    body[data-saison="hiver"] header::after {
+      content: "";
+      height: 20px;
+      margin: 34px -20px -46px;
+      background: repeating-linear-gradient(45deg, #fffdf6 0 14px, #0b6e4f 14px 28px);
+    }
+
+    body[data-saison="hiver"] .recette {
+      padding: 40px 22px 26px;
+      border: 4px solid var(--c);
+      border-radius: 20px;
+      box-shadow: 7px 7px 0 var(--c);
+      outline: 2px dashed var(--accent);
+      outline-offset: -11px;
+    }
+
+    body[data-saison="hiver"] .recette::before { content: "Recette n° " counter(recette); }
+
+    body[data-saison="hiver"] .recette:hover { transform: translateY(-6px) rotate(-1deg); }
+
+    /* ============================================================
+       4. ANIMATIONS : apparition des cartes + particules de saison
+       ============================================================ */
+    @keyframes apparition {
+      from { opacity: 0; transform: translateY(26px); }
+    }
+
+    #particules {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 40;
+    }
+
+    #particules span {
+      position: absolute;
+      top: 0;
+      opacity: 0.85;
+      will-change: transform;
+      animation-iteration-count: infinite;
+      animation-timing-function: linear;
+    }
+
+    #particules.tombe span { animation-name: tomber; }
+    #particules.monte span { animation-name: monter; }
+
+    @keyframes tomber {
+      from { transform: translate(0, -8vh) rotate(0deg); }
+      50%  { transform: translate(40px, 50vh) rotate(180deg); }
+      to   { transform: translate(-30px, 108vh) rotate(360deg); }
+    }
+
+    @keyframes monter {
+      from { transform: translate(0, 108vh) scale(0.6); }
+      50%  { transform: translate(30px, 50vh) scale(1); }
+      to   { transform: translate(-20px, -8vh) scale(1.1); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      #particules { display: none; }
+      .recette { animation: none; }
+      html { scroll-behavior: auto; }
+    }
+
+    /* ============================================================
+       5. ADAPTATION TABLETTE ET TÉLÉPHONE
+       ============================================================ */
+    @media (max-width: 900px) {
+      .recettes { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 600px) {
+      .recettes { grid-template-columns: 1fr; }
+      .onglet { padding: 6px 14px; }
+      .deco { letter-spacing: 8px; }
+    }
+  </style>
+</head>
+
+<body data-saison="automne">
+
+  <div id="particules" aria-hidden="true"></div>
+
+  <header>
+    <p class="deco" id="deco"></p>
+    <h1 id="titre"></h1>
+    <p class="sous-titre" id="sous-titre"></p>
+  </header>
+
+  <nav class="onglets" role="tablist" aria-label="Choisir une saison">
+    <button class="onglet" role="tab" data-saison="printemps">🌸 Printemps</button>
+    <button class="onglet" role="tab" data-saison="ete">☀️ Été</button>
+    <button class="onglet" role="tab" data-saison="automne">🍂 Automne</button>
+    <button class="onglet" role="tab" data-saison="hiver">❄️ Hiver</button>
+  </nav>
+
+  <main>
+    <div class="recettes" id="recettes"></div>
+    <noscript><p>Activez JavaScript pour afficher les recettes.</p></noscript>
+  </main>
+
+  <footer>
+    <p id="pied"></p>
+  </footer>
+
+  <script>
+    /* ============================================================
+       MES RECETTES
+       Pour ajouter une recette : copiez un bloc { ... } complet
+       (virgule comprise) dans la bonne saison et changez les textes.
+       Pour mettre une photo : ajoutez   photo: "images/ma-photo.jpg",
+       Pour un sticker dans le coin :    sticker: "images/mon-image.jpg",
+       ============================================================ */
+    const SAISONS = {
+
+      printemps: {
+        titre: "Bonjour printemps !",
+        sous: "Neuf recettes fraîches et fleuries",
+        deco: "🌷 🌸 🌿",
+        pied: "🌷 Bon appétit et joli printemps 🌷",
+        particules: ["🌸", "🌼", "🌸", "🌷"],
+        sens: "tombe",
+        recettes: [
+          { emoji: "🌱", titre: "Velouté petits pois-menthe", temps: "25 min", pers: "4 personnes",
+            ingredients: ["500 g de petits pois (frais ou surgelés)", "1 oignon", "75 cl de bouillon de légumes", "10 feuilles de menthe", "10 cl de crème"],
+            etapes: ["Faire revenir l'oignon émincé dans une casserole.", "Ajouter les petits pois et le bouillon, cuire 15 minutes.", "Ajouter la menthe, puis mixer finement.", "Terminer avec la crème et servir tiède ou froid."] },
+
+          { emoji: "🥗", titre: "Salade d'asperges, œuf mollet", temps: "25 min", pers: "4 personnes",
+            ingredients: ["500 g d'asperges vertes", "4 œufs", "Huile d'olive, jus de citron, moutarde", "Copeaux de parmesan"],
+            etapes: ["Cuire les asperges 6 à 8 minutes à l'eau bouillante salée, puis les refroidir.", "Plonger les œufs 6 minutes 30 dans l'eau bouillante, puis les écaler.", "Préparer la vinaigrette : huile, citron, moutarde, sel, poivre.", "Dresser les asperges, poser les œufs coupés en deux et ajouter le parmesan."] },
+
+          { emoji: "🧀", titre: "Tarte fine asperges-chèvre", temps: "40 min", pers: "4 personnes",
+            ingredients: ["1 pâte feuilletée", "400 g d'asperges vertes", "150 g de chèvre frais", "Huile d'olive, sel, poivre"],
+            etapes: ["Dérouler la pâte sur une plaque et la piquer à la fourchette.", "Tartiner de chèvre frais.", "Disposer les asperges, arroser d'huile d'olive.", "Cuire 25 minutes à 200 °C."] },
+
+          { emoji: "🍳", titre: "Omelette aux herbes fraîches", temps: "10 min", pers: "4 personnes",
+            ingredients: ["8 œufs", "Ciboulette, persil, cerfeuil", "20 g de beurre", "Sel, poivre"],
+            etapes: ["Battre les œufs avec le sel et le poivre.", "Ajouter les herbes ciselées.", "Faire fondre le beurre à la poêle et verser les œufs.", "Cuire à feu moyen, plier l'omelette et servir aussitôt."] },
+
+          { emoji: "🍋", titre: "Risotto petits pois et citron", temps: "35 min", pers: "4 personnes",
+            ingredients: ["300 g de riz arborio", "300 g de petits pois", "1 oignon", "1 litre de bouillon chaud", "1 citron (zeste et jus)", "50 g de parmesan"],
+            etapes: ["Faire revenir l'oignon, ajouter le riz et le nacrer 2 minutes.", "Verser le bouillon louche par louche pendant 18 minutes.", "Ajouter les petits pois pour les 5 dernières minutes.", "Terminer avec le zeste, le jus de citron et le parmesan."] },
+
+          { emoji: "🐑", titre: "Gigot d'agneau ail et romarin", temps: "1 h 30", pers: "6 personnes",
+            ingredients: ["1 gigot d'agneau de 2 kg", "6 gousses d'ail", "3 branches de romarin", "Huile d'olive, sel, poivre"],
+            etapes: ["Piquer le gigot avec l'ail en éclats.", "Frotter d'huile d'olive, saler, poivrer et ajouter le romarin.", "Cuire 1 h 15 à 180 °C pour une cuisson rosée.", "Laisser reposer 15 minutes sous une feuille d'aluminium avant de découper."] },
+
+          { emoji: "🍓", titre: "Tarte aux fraises", temps: "1 h + repos", pers: "6 personnes",
+            ingredients: ["1 pâte sablée", "500 g de fraises", "25 cl de lait", "2 jaunes d'œufs", "50 g de sucre", "20 g de maïzena"],
+            etapes: ["Cuire la pâte à blanc 15 minutes à 180 °C.", "Fouetter jaunes, sucre et maïzena, puis verser le lait chaud.", "Épaissir la crème sur feu doux en fouettant, puis la laisser refroidir.", "Étaler la crème sur le fond de tarte et recouvrir de fraises coupées."] },
+
+          { emoji: "🌸", titre: "Crumble à la rhubarbe", temps: "50 min", pers: "4 personnes",
+            ingredients: ["600 g de rhubarbe", "80 g de sucre", "100 g de beurre", "100 g de sucre roux", "150 g de farine"],
+            etapes: ["Couper la rhubarbe en tronçons et la mélanger avec les 80 g de sucre.", "Sabler beurre, sucre roux et farine du bout des doigts.", "Répartir le crumble sur la rhubarbe.", "Cuire 35 minutes à 180 °C."] },
+
+          { emoji: "🐣", titre: "Nids de Pâques au chocolat", temps: "20 min + repos", pers: "8 nids",
+            ingredients: ["200 g de chocolat noir", "100 g de corn flakes", "24 mini œufs en chocolat"],
+            etapes: ["Faire fondre le chocolat au bain-marie.", "Écraser légèrement les corn flakes et les mélanger au chocolat.", "Former 8 nids dans des caissettes en creusant le centre.", "Laisser prendre 30 minutes au frais, puis garnir de 3 mini œufs."] }
+        ]
+      },
+
+      ete: {
+        titre: "Vive l'été !",
+        sous: "Neuf recettes ensoleillées pour les jours de plage",
+        deco: "☀️ 🌴 🍉",
+        pied: "🍉 Bon appétit et bel été ! 🍉",
+        particules: ["🫧", "✨", "🫧"],
+        sens: "monte",
+        recettes: [
+          { emoji: "🍅", titre: "Gaspacho andalou", temps: "20 min + 2 h", pers: "4 personnes",
+            ingredients: ["1 kg de tomates bien mûres", "1 concombre", "1 poivron rouge", "1 gousse d'ail", "4 c. à soupe d'huile d'olive", "2 c. à soupe de vinaigre de vin", "Sel, poivre"],
+            etapes: ["Couper grossièrement les légumes.", "Mixer avec l'ail, l'huile et le vinaigre jusqu'à obtenir une soupe lisse.", "Saler, poivrer, puis goûter et rectifier l'assaisonnement.", "Laisser reposer 2 heures au réfrigérateur et servir bien frais."] },
+
+          { emoji: "🍈", titre: "Melon, jambon cru et menthe", temps: "10 min", pers: "4 personnes",
+            ingredients: ["1 melon bien mûr", "8 tranches de jambon cru", "Quelques feuilles de menthe", "Poivre, filet d'huile d'olive"],
+            etapes: ["Couper le melon en quartiers et retirer les graines.", "Enrouler le jambon cru autour de chaque quartier.", "Parsemer de menthe, poivrer et ajouter un filet d'huile d'olive."] },
+
+          { emoji: "🥗", titre: "Salade niçoise", temps: "25 min", pers: "4 personnes",
+            ingredients: ["4 tomates", "1 boîte de thon (160 g)", "4 œufs", "1 poivron", "1 poignée d'olives noires", "Basilic, huile d'olive, sel"],
+            etapes: ["Cuire les œufs 10 minutes à l'eau bouillante, puis les écaler.", "Couper les tomates en quartiers et le poivron en lamelles.", "Disposer le tout dans un saladier avec le thon émietté et les olives.", "Ajouter les œufs coupés en quartiers, le basilic et un filet d'huile d'olive."] },
+
+          { emoji: "🍆", titre: "Ratatouille", temps: "1 h 10", pers: "6 personnes",
+            ingredients: ["2 aubergines", "3 courgettes", "2 poivrons", "4 tomates", "1 oignon", "4 c. à soupe d'huile d'olive", "Thym, sel, poivre"],
+            etapes: ["Couper tous les légumes en cubes.", "Faire revenir l'oignon et les poivrons dans l'huile d'olive.", "Ajouter les aubergines, puis les courgettes et les tomates.", "Assaisonner, ajouter le thym et laisser mijoter 40 minutes à feu doux."] },
+
+          { emoji: "🍢", titre: "Brochettes de poulet citronné", temps: "30 min + marinade", pers: "4 personnes",
+            ingredients: ["600 g de blancs de poulet", "2 citrons", "3 c. à soupe d'huile d'olive", "2 gousses d'ail", "Thym, sel, poivre"],
+            etapes: ["Couper le poulet en cubes.", "Mélanger jus de citron, huile, ail écrasé et thym, puis y plonger le poulet 1 heure.", "Enfiler les morceaux sur des piques.", "Griller 12 minutes en retournant régulièrement."] },
+
+          { emoji: "🐟", titre: "Dorade en papillote", temps: "35 min", pers: "2 personnes",
+            ingredients: ["2 dorades vidées", "1 citron", "1 bulbe de fenouil", "2 tomates", "Aneth, huile d'olive, sel, poivre"],
+            etapes: ["Émincer le fenouil et couper les tomates en rondelles.", "Déposer chaque dorade sur une feuille de papier cuisson avec les légumes et des rondelles de citron.", "Ajouter l'aneth, l'huile, le sel et le poivre, puis fermer les papillotes.", "Cuire 20 minutes à 200 °C."] },
+
+          { emoji: "🍝", titre: "Salade de pâtes méditerranéenne", temps: "20 min", pers: "4 personnes",
+            ingredients: ["300 g de fusilli", "200 g de tomates cerises", "1 boule de mozzarella", "1 poignée d'olives", "3 c. à soupe de pesto", "Basilic"],
+            etapes: ["Cuire les pâtes, les rincer à l'eau froide et les égoutter.", "Couper les tomates cerises en deux et la mozzarella en dés.", "Mélanger les pâtes avec le pesto, les tomates, la mozzarella et les olives.", "Parsemer de basilic et servir frais."] },
+
+          { emoji: "🍒", titre: "Clafoutis aux cerises", temps: "50 min", pers: "6 personnes",
+            ingredients: ["500 g de cerises", "3 œufs", "100 g de sucre", "80 g de farine", "25 cl de lait", "1 pincée de sel"],
+            etapes: ["Beurrer un plat et y répartir les cerises.", "Fouetter œufs, sucre, farine, lait et sel.", "Verser la pâte sur les cerises.", "Cuire 35 minutes à 180 °C et servir tiède."] },
+
+          { emoji: "🍧", titre: "Sorbet à la fraise", temps: "15 min + 4 h", pers: "4 personnes",
+            ingredients: ["500 g de fraises", "100 g de sucre", "1 citron"],
+            etapes: ["Mixer les fraises avec le sucre et le jus du citron.", "Verser dans un récipient et placer au congélateur.", "Remuer à la fourchette toutes les heures pendant 4 heures.", "Sortir 5 minutes avant de servir."] }
+        ]
+      },
+
+      automne: {
+        titre: "Mon automne cosy",
+        sous: "Neuf recettes réconfortantes pour les jours de pluie",
+        deco: "🍂 🍁 🍂",
+        pied: "🍂 Bon appétit et bel automne 🍂",
+        particules: ["🍂", "🍁", "🍂"],
+        sens: "tombe",
+        recettes: [
+          { emoji: "🎃", titre: "Soupe de potiron", temps: "35 min", pers: "4 personnes",
+            ingredients: ["800 g de potiron", "1 oignon", "1 litre de bouillon", "10 cl de crème, muscade"],
+            etapes: ["Faire revenir l'oignon, ajouter le potiron en cubes.", "Couvrir de bouillon et cuire 25 minutes.", "Mixer, ajouter la crème et la muscade."] },
+
+          { emoji: "🌰", titre: "Velouté de châtaignes", temps: "30 min", pers: "4 personnes",
+            ingredients: ["400 g de châtaignes cuites", "1 poireau", "75 cl de bouillon", "10 cl de crème"],
+            etapes: ["Faire fondre le poireau émincé dans une casserole.", "Ajouter les châtaignes et le bouillon, cuire 20 minutes.", "Mixer et ajouter la crème."] },
+
+          { emoji: "🍄", titre: "Quiche aux champignons", temps: "50 min", pers: "6 personnes",
+            ingredients: ["1 pâte brisée", "400 g de champignons", "3 œufs, 20 cl de crème", "100 g de gruyère râpé"],
+            etapes: ["Faire sauter les champignons à la poêle.", "Battre les œufs avec la crème, saler, poivrer.", "Garnir la pâte, verser l'appareil, ajouter le fromage.", "Cuire 35 minutes à 180 °C."] },
+
+          { emoji: "🧀", titre: "Gratin de courge", temps: "55 min", pers: "4 personnes",
+            ingredients: ["1 kg de courge butternut", "20 cl de crème", "100 g de comté râpé", "Thym, sel, poivre"],
+            etapes: ["Couper la courge en rondelles fines.", "Les disposer dans un plat avec la crème et le thym.", "Parsemer de comté et cuire 40 minutes à 180 °C."] },
+
+          { emoji: "🍚", titre: "Risotto aux cèpes", temps: "40 min", pers: "4 personnes",
+            ingredients: ["300 g de riz arborio", "200 g de cèpes", "1 litre de bouillon chaud", "50 g de parmesan"],
+            etapes: ["Faire revenir les cèpes, les réserver.", "Nacrer le riz, puis ajouter le bouillon louche par louche.", "Terminer avec les cèpes et le parmesan."] },
+
+          { emoji: "🍷", titre: "Bœuf bourguignon", temps: "3 h", pers: "6 personnes",
+            ingredients: ["1,2 kg de bœuf à braiser", "75 cl de vin rouge", "200 g de lardons, 3 carottes", "2 oignons, bouquet garni"],
+            etapes: ["Faire dorer la viande et les lardons.", "Ajouter les légumes, le vin et le bouquet garni.", "Laisser mijoter à feu doux pendant 2 h 30."] },
+
+          { emoji: "🍎", titre: "Tarte tatin", temps: "1 h", pers: "6 personnes",
+            ingredients: ["8 pommes", "100 g de sucre, 50 g de beurre", "1 pâte feuilletée"],
+            etapes: ["Réaliser un caramel avec le sucre et le beurre dans un moule.", "Ranger les pommes en quartiers, serrées.", "Recouvrir de pâte, cuire 35 minutes à 180 °C.", "Retourner la tarte à la sortie du four."] },
+
+          { emoji: "🍐", titre: "Crumble pommes-poires", temps: "50 min", pers: "4 personnes",
+            ingredients: ["3 pommes, 3 poires", "100 g de beurre, 100 g de sucre", "150 g de farine, cannelle"],
+            etapes: ["Couper les fruits en morceaux, les mettre dans un plat.", "Sabler beurre, sucre et farine du bout des doigts.", "Répartir sur les fruits, cuire 35 minutes à 180 °C."] },
+
+          { emoji: "🍯", titre: "Cake au pain d'épices", temps: "1 h", pers: "8 personnes",
+            ingredients: ["200 g de farine", "150 g de miel, 100 g de beurre", "3 œufs, 1 sachet de levure", "2 c. à café d'épices à pain d'épices"],
+            etapes: ["Faire fondre le beurre avec le miel.", "Mélanger avec les œufs, la farine, la levure et les épices.", "Verser dans un moule à cake, cuire 45 minutes à 170 °C."] }
+        ]
+      },
+
+      hiver: {
+        titre: "Joyeux Noël !",
+        sous: "Neuf recettes de fête, façon Noël d'antan",
+        deco: "❄ 🎄 ❄",
+        pied: "🎅 Joyeuses fêtes et bon appétit ! 🎅",
+        particules: ["❄️", "❄️", "✨"],
+        sens: "tombe",
+        recettes: [
+          { emoji: "🐟", titre: "Toasts au saumon fumé", temps: "15 min", pers: "4 personnes",
+            ingredients: ["8 tranches de pain de mie", "200 g de saumon fumé", "150 g de fromage frais", "Aneth, 1 citron"],
+            etapes: ["Faire griller légèrement le pain de mie.", "Tartiner de fromage frais.", "Déposer le saumon, un peu d'aneth et un filet de citron."] },
+
+          { emoji: "🦐", titre: "Verrines avocat-crevettes", temps: "20 min", pers: "6 personnes",
+            ingredients: ["2 avocats", "250 g de crevettes cuites décortiquées", "3 c. à soupe de mayonnaise", "1 c. à soupe de ketchup, 1 citron"],
+            etapes: ["Écraser les avocats avec le jus du citron.", "Mélanger mayonnaise et ketchup pour faire la sauce rose.", "Remplir les verrines : avocat, crevettes, sauce.", "Garder au frais jusqu'au service."] },
+
+          { emoji: "🦃", titre: "Dinde rôtie aux marrons", temps: "3 h", pers: "8 personnes",
+            ingredients: ["1 dinde de 3,5 kg", "300 g de marrons cuits", "80 g de beurre mou", "Thym, sel, poivre"],
+            etapes: ["Badigeonner la dinde de beurre, saler, poivrer, ajouter le thym.", "Cuire environ 2 h 30 à 180 °C en arrosant souvent.", "Ajouter les marrons dans le plat pour les 30 dernières minutes.", "Laisser reposer 15 minutes avant de découper."] },
+
+          { emoji: "🍍", titre: "Jambon glacé à l'ananas", temps: "1 h 15", pers: "8 personnes",
+            ingredients: ["1 jambon cuit de 1,5 kg", "5 tranches d'ananas", "4 c. à soupe de miel", "1 c. à soupe de moutarde, clous de girofle"],
+            etapes: ["Quadriller le gras du jambon, piquer quelques clous de girofle.", "Fixer les tranches d'ananas avec des cure-dents.", "Badigeonner de miel mélangé à la moutarde.", "Cuire 45 minutes à 180 °C en arrosant régulièrement."] },
+
+          { emoji: "🥔", titre: "Gratin dauphinois", temps: "1 h 15", pers: "6 personnes",
+            ingredients: ["1 kg de pommes de terre", "40 cl de crème", "20 cl de lait", "1 gousse d'ail, muscade, sel"],
+            etapes: ["Frotter un plat avec l'ail.", "Éplucher et couper les pommes de terre en fines rondelles.", "Les ranger dans le plat, verser crème et lait assaisonnés de muscade et de sel.", "Cuire 1 heure à 160 °C."] },
+
+          { emoji: "🍠", titre: "Patates douces aux guimauves", temps: "50 min", pers: "6 personnes",
+            ingredients: ["1 kg de patates douces", "50 g de beurre", "100 g de mini-guimauves", "1 c. à café de cannelle"],
+            etapes: ["Cuire les patates douces épluchées 25 minutes à l'eau bouillante.", "Les écraser avec le beurre et la cannelle, verser dans un plat.", "Couvrir de guimauves.", "Passer 10 minutes à 200 °C, jusqu'à ce qu'elles dorent."] },
+
+          { emoji: "🎄", titre: "Bûche de Noël au chocolat", temps: "1 h 30", pers: "8 personnes",
+            ingredients: ["4 œufs, 120 g de sucre", "100 g de farine", "200 g de chocolat noir", "20 cl de crème liquide"],
+            etapes: ["Battre les œufs et le sucre, incorporer la farine.", "Étaler sur une plaque, cuire 10 minutes à 180 °C.", "Préparer une ganache : verser la crème chaude sur le chocolat et mélanger.", "Tartiner le biscuit tiède de ganache, rouler, puis napper le dessus.", "Laisser prendre 2 heures au frais."] },
+
+          { emoji: "🍪", titre: "Sablés en forme de sapin", temps: "1 h", pers: "20 biscuits",
+            ingredients: ["250 g de farine", "125 g de beurre mou", "100 g de sucre, 1 œuf", "1 c. à café d'extrait de vanille"],
+            etapes: ["Mélanger tous les ingrédients jusqu'à obtenir une pâte lisse.", "Laisser reposer 30 minutes au frais.", "Étaler, découper à l'emporte-pièce.", "Cuire 10 minutes à 180 °C."] },
+
+          { emoji: "☕", titre: "Chocolat chaud du Père Noël", temps: "10 min", pers: "4 personnes",
+            ingredients: ["1 litre de lait", "150 g de chocolat noir", "2 c. à soupe de sucre", "Mini-guimauves, bâtons de cannelle"],
+            etapes: ["Chauffer le lait sans le faire bouillir.", "Ajouter le chocolat en morceaux et le sucre, fouetter.", "Servir avec des guimauves et un bâton de cannelle."] }
+        ]
+      }
+    };
+
+    /* ============================================================
+       LE MOTEUR (pas besoin d'y toucher)
+       ============================================================ */
+
+    // Construit le code HTML d'une carte de recette
+    function carte(r, i) {
+      const visuel = r.photo
+        ? `<img class="photo" src="${r.photo}" alt="${r.titre}">`
+        : `<p class="emoji">${r.emoji}</p>`;
+      const sticker = r.sticker
+        ? `<img class="sticker" src="${r.sticker}" alt="Sticker">`
+        : "";
+      const liste = (tableau) => tableau.map((x) => `<li>${x}</li>`).join("");
+
+      return `
+        <article class="recette" style="--i:${i}">
+          ${sticker}
+          ${visuel}
+          <h2>${r.titre}</h2>
+          <p class="infos">⏱ ${r.temps} · 👥 ${r.pers}</p>
+          <details>
+            <summary>Voir la recette</summary>
+            <h3>Ingrédients</h3>
+            <ul>${liste(r.ingredients)}</ul>
+            <h3>Préparation</h3>
+            <ol>${liste(r.etapes)}</ol>
+          </details>
+        </article>`;
+    }
+
+    // Lance les flocons, pétales, feuilles ou bulles de la saison
+    function lancerParticules(s) {
+      const zone = document.getElementById("particules");
+      zone.innerHTML = "";
+      zone.className = s.sens;
+      for (let i = 0; i < 18; i++) {
+        const p = document.createElement("span");
+        p.textContent = s.particules[i % s.particules.length];
+        p.style.left = Math.random() * 100 + "%";
+        p.style.fontSize = 14 + Math.random() * 18 + "px";
+        p.style.animationDuration = 9 + Math.random() * 10 + "s";
+        p.style.animationDelay = -Math.random() * 18 + "s";
+        zone.appendChild(p);
+      }
+    }
+
+    // Affiche une saison : change le thème, les textes, les recettes
+    function afficher(cle, remonter) {
+      const s = SAISONS[cle];
+      document.body.dataset.saison = cle;
+      document.getElementById("deco").textContent = s.deco;
+      document.getElementById("titre").textContent = s.titre;
+      document.getElementById("sous-titre").textContent = s.sous;
+      document.getElementById("pied").textContent = s.pied;
+      document.getElementById("recettes").innerHTML = s.recettes.map(carte).join("");
+
+      document.querySelectorAll(".onglet").forEach((bouton) => {
+        const actif = bouton.dataset.saison === cle;
+        bouton.classList.toggle("actif", actif);
+        bouton.setAttribute("aria-selected", actif ? "true" : "false");
+      });
+
+      lancerParticules(s);
+      if (remonter) window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    // La saison affichée au départ dépend du mois en cours
+    function saisonActuelle() {
+      const mois = new Date().getMonth() + 1;
+      if (mois >= 3 && mois <= 5) return "printemps";
+      if (mois >= 6 && mois <= 8) return "ete";
+      if (mois >= 9 && mois <= 11) return "automne";
+      return "hiver";
+    }
+
+    document.querySelectorAll(".onglet").forEach((bouton) => {
+      bouton.addEventListener("click", () => afficher(bouton.dataset.saison, true));
+    });
+
+    afficher(saisonActuelle(), false);
+  </script>
+
+</body>
+</html>
